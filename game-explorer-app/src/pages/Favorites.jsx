@@ -1,8 +1,28 @@
 import React from "react";
+import GameCard from "../components/GameCard";
 
 const Favorites = () => {
-  // Placeholder for now
-  const favorites = [];
+  // Placeholder favorites data for now
+  const favorites = [
+    {
+      title: "Cyberpunk 2077",
+      releaseDate: "2020-12-10",
+      rating: "4.2",
+      image: "https://via.placeholder.com/400x200", // placeholder image
+    },
+    {
+      title: "The Witcher 3",
+      releaseDate: "2015-05-19",
+      rating: "4.9",
+      image: "https://via.placeholder.com/400x200",
+    },
+    {
+      title: "Elden Ring",
+      releaseDate: "2022-02-25",
+      rating: "5.0",
+      image: "https://via.placeholder.com/400x200",
+    },
+  ];
 
   return (
     <div className="p-6">
@@ -15,7 +35,16 @@ const Favorites = () => {
         </p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* the favorite game cards comes here */}
+          {/* Some sample favorites game cards here */}
+          {favorites.map((game, index) => (
+            <GameCard
+              key={index}
+              title={game.title}
+              releaseDate={game.releaseDate}
+              rating={game.rating}
+              image={game.image}
+            />
+          ))}
         </div>
       )}
     </div>
