@@ -1,9 +1,11 @@
+import React from "react";
+
 const GameDetails = () => {
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold text-indigo-600">Game Details</h2>
-      <p className="mt-2 text-gray-600">
-        Detailed information about a selected game.
+      <h1 className="text-2xl font-bold mb-4 text-center">Game Details</h1>
+      <p className="text-gray-700 dark:text-gray-300 text-center">
+        Detailed information about the selected game will appear here.
       </p>
     </div>
   );
