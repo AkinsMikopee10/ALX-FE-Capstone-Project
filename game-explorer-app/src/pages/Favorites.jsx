@@ -35,7 +35,7 @@ const Favorites = () => {
         </p>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {/* Some sample favorites game cards here */}
+          {/* Some placeholder favorites game cards here */}
           {favorites.map((game, index) => (
             <GameCard
               key={index}
