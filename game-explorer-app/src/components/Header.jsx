@@ -29,19 +29,19 @@ const Header = () => {
         <div className="space-x-4">
           <Link
             to="/"
-            className="text-gray-700 dark:text-gray-200 hover:text-indigo-600"
+            className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400"
           >
             Home
           </Link>
           <Link
             to="/favorites"
-            className="text-gray-700 dark:text-gray-200 hover:text-indigo-600"
+            className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400"
           >
             Favorites
           </Link>
           <Link
             to="/about"
-            className="text-gray-700 dark:text-gray-200 hover:text-indigo-600"
+            className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400"
           >
             About
           </Link>
