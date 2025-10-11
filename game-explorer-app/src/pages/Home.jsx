@@ -1,71 +1,70 @@
-import React, { useState } from "react";
-import SearchBar from "../components/SearchBar";
+// src/pages/Home.jsx
+
+import React, { useEffect, useState } from "react";
+import fetchGames from "../api/fetchGames"; // ✅ uses the default export
 import GameCard from "../components/GameCard";
+import SearchBar from "../components/SearchBar";
 
-const Home = () => {
-  const [games, setGames] = useState([
-    // Placeholder games for now
-    {
-      title: "Cyberpunk 2077",
-      releaseDate: "2020-12-10",
-      rating: "4.2",
-      image: "https://via.placeholder.com/400x200",
-    },
-    {
-      title: "The Witcher 3",
-      releaseDate: "2015-05-19",
-      rating: "4.9",
-      image: "https://via.placeholder.com/400x200",
-    },
-    {
-      title: "Elden Ring",
-      releaseDate: "2022-02-25",
-      rating: "5.0",
-      image: "https://via.placeholder.com/400x200",
-    },
-    {
-      title: "Horizon Forbidden West",
-      releaseDate: "2022-02-18",
-      rating: "4.7",
-      image: "https://via.placeholder.com/400x200",
-    },
-  ]);
+function Home() {
+  // State variables
+  const [games, setGames] = useState([]); // store list of games
+  const [loading, setLoading] = useState(true); // show spinner while loading
+  const [error, setError] = useState(null); // store error message
+  const [query, setQuery] = useState(""); // store search text
 
-  const handleSearch = (query) => {
-    console.log("Searching for:", query);
-    // Later: fetch data from RAWG API
+  // Fetch games when the page first loads
+  useEffect(() => {
+    loadGames(); // no query = fetch popular games
+  }, []);
+
+  // Function to load games (can be used for default or searched games)
+  const loadGames = async (searchTerm = "") => {
+    setLoading(true);
+    setError(null);
+
+    const data = await fetchGames(searchTerm);
+
+    if (data.length === 0) {
+      setError("No games found. Try another search!");
+    }
+
+    setGames(data);
+    setLoading(false);
   };
 
-  return (
-    <div className="p-6">
-      {/* Heading */}
-      <h1 className="text-2xl font-bold mb-4 text-center">
-        Welcome to Game Explorer
-      </h1>
+  // Handle the search action when user submits a search
+  const handleSearch = (searchTerm) => {
+    setQuery(searchTerm);
+    loadGames(searchTerm);
+  };
 
-      {/* Search bar */}
+  console.log(games);
+
+  return (
+    <div className="p-4 md:p-8 min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+      {/* Search Bar */}
       <SearchBar onSearch={handleSearch} />
 
-      {/* Game results grid */}
-      {games.length === 0 ? (
+      {/* Loading State */}
+      {loading && (
         <p className="text-center text-gray-600 dark:text-gray-300 mt-6">
-          No games found. Try searching for something else.
+          Loading games...
         </p>
-      ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
-          {games.map((game, index) => (
-            <GameCard
-              key={index}
-              title={game.title}
-              releaseDate={game.releaseDate}
-              rating={game.rating}
-              image={game.image}
-            />
+      )}
+
+      {/* Error Message */}
+      {error && <p className="text-center text-red-500 mt-6">{error}</p>}
+
+      {/* Game List */}
+      {!loading && !error && (
+        <div className="grid gap-6 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {games.map((game) => (
+            <GameCard key={game.id} game={game} />
           ))}
         </div>
       )}
     </div>
   );
-};
+}
 
 export default Home;

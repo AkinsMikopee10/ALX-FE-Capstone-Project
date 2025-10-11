@@ -1,32 +1,40 @@
+// src/components/SearchBar.jsx
+
 import React, { useState } from "react";
 
-const SearchBar = ({ onSearch }) => {
-  const [query, setQuery] = useState("");
+function SearchBar({ onSearch }) {
+  const [inputValue, setInputValue] = useState("");
 
+  // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (query.trim()) {
-      onSearch(query);
-    }
+    if (inputValue.trim() === "") return; // ignore empty search
+    onSearch(inputValue);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex justify-center mt-6 mb-6">
+    <form
+      onSubmit={handleSubmit}
+      className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-4"
+    >
       <input
         type="text"
         placeholder="Search games..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="w-2/3 md:w-1/3 p-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+        className="w-full sm:w-1/2 p-3 rounded-lg border border-gray-300 
+                   focus:outline-none focus:ring-2 focus:ring-indigo-500
+                   dark:bg-gray-800 dark:border-gray-700 dark:text-white"
       />
       <button
         type="submit"
-        className="bg-indigo-600 text-white px-4 rounded-r-lg hover:bg-indigo-700 transition"
+        className="px-5 py-3 bg-indigo-600 text-white font-medium rounded-lg
+                   hover:bg-indigo-700 transition-colors duration-200"
       >
         Search
       </button>
     </form>
   );
-};
+}
 
 export default SearchBar;
