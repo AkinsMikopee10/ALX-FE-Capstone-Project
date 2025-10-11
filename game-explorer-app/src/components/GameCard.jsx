@@ -1,5 +1,7 @@
 // src/components/GameCard.jsx
-// Purpose: Display a single game card with cover image, title, and favorite toggle.
+// Component: GameCard
+// Purpose: Displays individual game info (image, title, release, rating)
+// and lets users add/remove favorites with a short feedback message.
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -7,28 +9,36 @@ import { addFavorite, removeFavorite, isFavorite } from "../utils/favorites";
 
 export default function GameCard({ game }) {
   const [fav, setFav] = useState(false);
+  const [message, setMessage] = useState(""); // Stores feedback text for user actions
 
+  // Check if the current game is already in favorites
   useEffect(() => {
-    // check if this game is already in favorites on mount
     if (game && game.id) {
       setFav(isFavorite(game.id));
     }
   }, [game]);
 
+  // Handles adding or removing a game from favorites
   const handleToggleFavorite = () => {
     if (!game) return;
+
     if (fav) {
       removeFavorite(game.id);
       setFav(false);
+      setMessage("Removed from Favorites ❌");
     } else {
       addFavorite(game);
       setFav(true);
+      setMessage("Added to Favorites ✅");
     }
+
+    // Clear message after 1.5 seconds
+    setTimeout(() => setMessage(""), 1500);
   };
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transform transition hover:scale-105 hover:shadow-lg">
-      {/* Cover image */}
+      {/* --- Game Cover Image --- */}
       {game.background_image ? (
         <img
           src={game.background_image}
@@ -41,16 +51,19 @@ export default function GameCard({ game }) {
         </div>
       )}
 
-      {/* Game Info */}
+      {/* --- Game Information --- */}
       <div className="p-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2">
+        <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-1">
           {game.name}
         </h3>
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        <p className="text-sm text-gray-500 dark:text-gray-400">
           Released: {game.released || "N/A"}
         </p>
+        <p className="text-sm text-yellow-500 dark:text-yellow-400 mb-3">
+          ⭐ Rating: {game.rating ? game.rating.toFixed(1) : "N/A"}
+        </p>
 
-        {/* Buttons */}
+        {/* --- Buttons: View Details + Add/Remove Favorite --- */}
         <div className="flex justify-between items-center">
           <Link
             to={`/game/${game.id}`}
@@ -61,15 +74,22 @@ export default function GameCard({ game }) {
 
           <button
             onClick={handleToggleFavorite}
-            className={`text-xs px-2 py-1 rounded ${
+            className={`text-xs px-2 py-1 rounded transition ${
               fav
-                ? "bg-red-500 text-white hover:bg-red-600"
-                : "bg-green-500 text-white hover:bg-green-600"
+                ? "bg-red-500 hover:bg-red-600 text-white"
+                : "bg-green-500 hover:bg-green-600 text-white"
             }`}
           >
             {fav ? "Remove" : "Add"}
           </button>
         </div>
+
+        {/* --- Temporary Feedback Message --- */}
+        {message && (
+          <p className="text-xs text-center text-gray-600 dark:text-gray-300 mt-2 transition-opacity duration-300">
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );

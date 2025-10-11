@@ -1,70 +1,76 @@
-// src/pages/Home.jsx
-
-import React, { useEffect, useState } from "react";
-import fetchGames from "../api/fetchGames"; // ✅ uses the default export
-import GameCard from "../components/GameCard";
+import React, { useState, useEffect } from "react";
 import SearchBar from "../components/SearchBar";
+import GameCard from "../components/GameCard";
+import fetchGames from "../api/fetchGames";
+import Loader from "../components/Loader"; // simple spinner
 
-function Home() {
-  // State variables
-  const [games, setGames] = useState([]); // store list of games
-  const [loading, setLoading] = useState(true); // show spinner while loading
-  const [error, setError] = useState(null); // store error message
-  const [query, setQuery] = useState(""); // store search text
+const Home = () => {
+  // ✅ State: games, search query, loading & error
+  const [games, setGames] = useState([]);
+  const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-  // Fetch games when the page first loads
+  // ✅ Fetch popular games when the app first loads
   useEffect(() => {
-    loadGames(); // no query = fetch popular games
+    const loadPopular = async () => {
+      setLoading(true);
+      try {
+        const data = await fetchGames("");
+        setGames(data);
+      } catch (err) {
+        setError("Failed to load popular games.");
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadPopular();
   }, []);
 
-  // Function to load games (can be used for default or searched games)
-  const loadGames = async (searchTerm = "") => {
-    setLoading(true);
-    setError(null);
-
-    const data = await fetchGames(searchTerm);
-
-    if (data.length === 0) {
-      setError("No games found. Try another search!");
-    }
-
-    setGames(data);
-    setLoading(false);
-  };
-
-  // Handle the search action when user submits a search
-  const handleSearch = (searchTerm) => {
+  // ✅ Handle search
+  const handleSearch = async (searchTerm) => {
     setQuery(searchTerm);
-    loadGames(searchTerm);
-  };
+    setLoading(true);
+    setError("");
 
-  console.log(games);
+    try {
+      const data = await fetchGames(searchTerm);
+      setGames(data);
+    } catch (err) {
+      setError("Something went wrong. Please try again later.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="p-4 md:p-8 min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      {/* Search Bar */}
+    <div className="p-4">
+      {/* 🔍 Search bar */}
       <SearchBar onSearch={handleSearch} />
 
-      {/* Loading State */}
-      {loading && (
-        <p className="text-center text-gray-600 dark:text-gray-300 mt-6">
-          Loading games...
-        </p>
-      )}
+      {/* ⏳ Loading indicator */}
+      {loading && <Loader />}
 
-      {/* Error Message */}
-      {error && <p className="text-center text-red-500 mt-6">{error}</p>}
+      {/* ⚠️ Error message */}
+      {error && <p className="text-center text-red-500 mt-4">{error}</p>}
 
-      {/* Game List */}
-      {!loading && !error && (
-        <div className="grid gap-6 mt-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      {/* 🎮 Games grid */}
+      {!loading && !error && games.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-6">
           {games.map((game) => (
             <GameCard key={game.id} game={game} />
           ))}
         </div>
       )}
+
+      {/* 🚫 No results */}
+      {!loading && !error && games.length === 0 && (
+        <p className="text-center text-gray-500 mt-4">
+          No games found. Try another search!
+        </p>
+      )}
     </div>
   );
-}
+};
 
 export default Home;
