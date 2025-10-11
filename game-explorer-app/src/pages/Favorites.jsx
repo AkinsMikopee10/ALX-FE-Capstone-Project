@@ -1,34 +1,43 @@
-import React from "react";
-import FavoritesList from "../components/FavoritesList";
+// src/pages/Favorites.jsx
+// Purpose: Display all favorite games saved in localStorage.
 
-const Favorites = () => {
-  const favorites = [
-    {
-      title: "Cyberpunk 2077",
-      releaseDate: "2020-12-10",
-      rating: "4.2",
-      image: "https://via.placeholder.com/400x200",
-    },
-    {
-      title: "The Witcher 3",
-      releaseDate: "2015-05-19",
-      rating: "4.9",
-      image: "https://via.placeholder.com/400x200",
-    },
-    {
-      title: "Elden Ring",
-      releaseDate: "2022-02-25",
-      rating: "5.0",
-      image: "https://via.placeholder.com/400x200",
-    },
-  ];
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getFavorites } from "../utils/favorites";
+import GameCard from "../components/GameCard";
+
+export default function Favorites() {
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    // Load favorites from localStorage when page mounts
+    const favs = getFavorites();
+    setFavorites(favs);
+  }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4 text-center">Your Favorites</h1>
-      <FavoritesList favorites={favorites} />
+    <div className="p-6 max-w-6xl mx-auto">
+      <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6">
+        Your Favorite Games
+      </h1>
+
+      {favorites.length === 0 ? (
+        <div className="text-center text-gray-600 dark:text-gray-300">
+          <p>You have no favorites yet.</p>
+          <Link
+            to="/"
+            className="inline-block mt-4 text-indigo-600 hover:underline"
+          >
+            Browse Games
+          </Link>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6">
+          {favorites.map((game) => (
+            <GameCard key={game.id} game={game} />
+          ))}
+        </div>
+      )}
     </div>
   );
-};
-
-export default Favorites;
+}
