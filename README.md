@@ -88,6 +88,7 @@ React
   for frontend development
 
 📌 Status
-
-Currently in Week 3: Project Setup
+Completed Week 3: Project Setup
 ✅ Repo initialized with React app, TailwindCSS, and Router.
+
+Currently working on Week 4 → Connect to RAWG API + Search feature
