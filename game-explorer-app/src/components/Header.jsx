@@ -5,7 +5,7 @@ import { Gamepad2, Sun, Moon } from "lucide-react"; // icons for light & dark mo
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
 
-  // Apply/remove dark mode class on <html> element
+  // Apply/remove dark mode class
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -47,7 +47,7 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* Dark Mode Toggle button */}
+        {/* the dark Mode toggle button */}
         <button
           onClick={() => setDarkMode(!darkMode)}
           className="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"

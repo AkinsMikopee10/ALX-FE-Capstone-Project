@@ -1,7 +1,6 @@
 // src/components/GameCard.jsx
-// Component: GameCard
-// Purpose: Displays individual game info (image, title, release, rating)
-// and lets users add/remove favorites with a short feedback message.
+// the purpose of ths component is to display individual game info (image, title, release, rating)
+// and let users add/remove favorites with a short feedback message.
 
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";

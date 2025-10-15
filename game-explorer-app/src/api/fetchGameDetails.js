@@ -1,5 +1,4 @@
-// src/api/fetchGameDetails.js
-// Purpose: Fetch detailed info for a single game from RAWG API.
+// this helper's purpose is to fetch detailed info for a single game from RAWG API.
 
 const BASE_URL = "https://api.rawg.io/api/games";
 const API_KEY = import.meta.env.VITE_RAWG_API_KEY;

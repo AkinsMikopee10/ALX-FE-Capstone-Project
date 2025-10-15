@@ -1,6 +1,4 @@
-// src/api/fetchGames.js
-
-// This helper function fetches game data from the RAWG API.
+// This helper function helps to fetch game data from the RAWG API.
 // It can handle both popular games and search queries.
 
 const BASE_URL = "https://api.rawg.io/api/games";
@@ -15,12 +13,12 @@ async function fetchGames(searchQuery = "") {
 
     const response = await fetch(url);
 
-    // If something goes wrong (like a 404 or 500), throw an error
+    // If something goes wrong, throw an error
     if (!response.ok) {
       throw new Error("Failed to fetch games");
     }
 
-    // Parse JSON data
+    // converts the data to JSON
     const data = await response.json();
 
     // Return only the list of games
@@ -31,5 +29,4 @@ async function fetchGames(searchQuery = "") {
   }
 }
 
-// ✅ Default export so it can be imported easily in other files
 export default fetchGames;

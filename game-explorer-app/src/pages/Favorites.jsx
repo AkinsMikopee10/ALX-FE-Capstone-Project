@@ -1,5 +1,4 @@
-// src/pages/Favorites.jsx
-// Purpose: Display all favorite games saved in localStorage.
+// the purpose of this component is to display all favorite games saved in localStorage.
 
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";

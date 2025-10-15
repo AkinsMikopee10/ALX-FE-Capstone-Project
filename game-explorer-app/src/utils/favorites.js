@@ -1,11 +1,10 @@
-// src/utils/favorites.js
-// Simple localStorage helpers to store favorite games.
-// Stored format: array of game objects (with at least id, name, background_image, released, rating)
+// This is the localStorage helper to store favorite games.
+// It stores the data as an array of game objects (with at least id, name, background_image, released, rating)
 
 const KEY = "favorites";
 
 /**
- * Get favorites from localStorage (returns array)
+ * Get favorites from localStorage and returns the array
  */
 export function getFavorites() {
   try {

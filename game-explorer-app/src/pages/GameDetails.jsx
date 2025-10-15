@@ -1,7 +1,6 @@
-// src/pages/GameDetails.jsx
-// Purpose: Show extended info for a single game (fetched from RAWG).
-// Shows: title, cover image, release date, rating, description, platforms, genres, developer, publisher, age rating.
-// Also: Add / Remove favorites using localStorage helpers.
+// the purpose of this component is to show extended info for a single game (fetched from RAWG).
+// it shows the games title, cover image, release date, rating, description, platforms, genres, developer, publisher, age rating.
+// it also performs the Add / Remove favorites using localStorage helpers.
 
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
@@ -92,7 +91,7 @@ export default function GameDetails() {
       </div>
     );
 
-  // Helper getters with safe fallbacks
+  // Safely extract details like platforms, genres, etc. Show "N/A" if not available
   const platforms =
     game.platforms
       ?.map((p) => p.platform?.name)
@@ -105,7 +104,7 @@ export default function GameDetails() {
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      {/* Back link */}
+      {/* link back to Home page */}
       <div className="mb-4">
         <Link to="/" className="text-indigo-600 hover:underline">
           ← Back to Home
@@ -117,7 +116,7 @@ export default function GameDetails() {
         {game.name}
       </h1>
 
-      {/* Cover + meta */}
+      {/* Cover + meta data */}
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Cover image */}
         <div className="lg:w-1/3">

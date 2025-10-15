@@ -1,11 +1,9 @@
-// src/components/SearchBar.jsx
-
 import React, { useState } from "react";
 
 function SearchBar({ onSearch }) {
   const [inputValue, setInputValue] = useState("");
 
-  // Handle form submit
+  // this handles the form submit
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim() === "") return; // ignore empty search
