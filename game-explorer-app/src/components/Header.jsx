@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Gamepad2, Sun, Moon } from "lucide-react";
+import { Gamepad2, Sun, Moon } from "lucide-react"; // icons for light & dark mode and the Gamepad for logo
 
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
@@ -18,7 +18,7 @@ const Header = () => {
     // Header background changes with dark mode
     <header className="bg-white dark:bg-gray-900 shadow-md">
       <nav className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* Logo with Gamepad icon */}
+        {/* the div for the Logo with Gamepad icon is here */}
         <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold text-lg">
           <Gamepad2 size={20} />{" "}
           {/* the Gamepad icon from lucide-react is here */}
