@@ -2,98 +2,105 @@
 
 ## Project Overview
 
-Game Explorer is a React web application that allows users to search for video games, view detailed information about each game, and manage a list of favorite games.  
-The app uses the RAWG Video Games Database API and features a clean, responsive interface built with Tailwind CSS.  
-It also supports dark mode and a mobile-friendly hamburger menu for easy navigation.
+Game Explorer is a React web application that allows users to search for video games, view detailed information about each one, and save favorite games locally.
+It uses the RAWG Video Games Database API and is built with React and Tailwind CSS.
+The app includes dark mode support and a hamburger menu for easy mobile navigation.
 
----
+## Core Features
 
-## Features
+Search games by title using the RAWG API
 
-### Core Features
+View detailed game information (description, release date, rating, genre, etc.)
 
-- Search for games by title using the RAWG API
-- View detailed game information such as description, release date, rating, genre, and developer
-- Add and remove favorite games (saved using localStorage)
-- Responsive design that adapts to both desktop and mobile devices
-- Dark Mode toggle
-- Hamburger menu for mobile users
-- Loading and error states for better user experience
+Add and remove favorites using localStorage
 
-### Stretch Features (Future Improvements)
+Responsive layout that works on both desktop and mobile
 
-- User reviews and ratings
-- Pagination or infinite scroll
-- Screenshots and video trailers
-- Recommendations engine
-- Wishlist or backlog feature
-- User authentication
-- Database-powered favorites
+Dark Mode toggle
 
----
+Mobile hamburger menu for easier navigation
+
+Loading and error messages during API requests
+
+## Stretch Features (Future Updates)
+
+User reviews and ratings
+
+Pagination or infinite scroll
+
+Screenshots and trailers
+
+Game recommendations
+
+Wishlist feature
+
+User authentication
+
+Database storage for favorites
 
 ## How It Works
 
-1. The user enters a game title in the search bar.
-2. The app fetches data from the RAWG API and displays results in a grid layout.
-3. Clicking a game opens its details page, showing more information.
-4. Users can add or remove games from their favorites list.
-5. Favorites are stored locally using `localStorage`, so they remain even after a page refresh.
+User types a game title in the search bar.
 
----
+The app fetches results from the RAWG API and displays them in a grid.
 
-## Tech Stack
+Clicking a game opens its details page.
 
-| Tools
-|----------------
-| React (Vite)
-| Tailwind CSS for Styling and responsiveness
-| RAWG API - Game data source
-| localStorage to save favorites locally
-| Lucide React Icons for visual icons (light/dark mode, menu)
-| Git & GitHub - Version control
-| Vercel - Deployment platform
+User can add or remove games from the favorites list.
 
----
+Favorites are saved locally and remain even after refresh.
 
-## Component Structure
+## Tech Used
 
-App
-├─ Header / NavBar
-│  ├─ Logo / App Name
-│  ├─ Navigation Links (Home, Favorites, About)
-│  ├─ Dark Mode Toggle
-│  └─ Hamburger Menu (mobile only)
-├─ GameList (renders GameCard components)
-│  └─ GameCard (cover, title, release date, favorite toggle)
-├─ GameDetails (displays extended info)
-├─ FavoritesList (shows saved games)
-└─ About Page (project details)
+React (Vite)
 
----
+Tailwind CSS
 
-## Development Timeline
+RAWG API
 
-| Week                     | Task                                                      | Status      |
-| ------------------------ | --------------------------------------------------------- | ----------- |
-| Week 1 – Planning        | Defined project idea, tested RAWG API                     | Completed   |
-| Week 2 – Design          | Created wireframes, chose colors and fonts                | Completed   |
-| Week 3 – UI Components   | Built NavBar, SearchBar, GameCard, and layouts            | Completed   |
-| Week 4 – API Integration | Connected to RAWG API, added favorites                    | Completed   |
-| Week 5 – Polish & Deploy | Added dark mode, hamburger menu, preparing for deployment | In Progress |
+localStorage
 
----
+Git & GitHub
 
-## How to Run the Project Locally
+Vercel (for deployment)
 
-1. Clone the repository
-   ```bash
-   git clone https://github.com/your-username/ALX-FE-Capstone-Project.git
-   ```
+## Components Overview
 
-Navigate to the project folder
+Header – Includes links, dark mode toggle, and hamburger menu
 
-cd ALX-FE-Capstone-Project
+SearchBar – Allows users to search for games
+
+GameList – Displays list of games from the API
+
+GameCard – Shows individual game info
+
+GameDetails – Displays extended details for a selected game
+
+FavoritesList – Shows saved favorite games
+
+About Page – Contains project details
+
+## Development Progress
+
+Week 1: Project idea and API testing – Completed
+
+Week 2: Design setup and styling choices – Completed
+
+Week 3: UI components built – Completed
+
+Week 4: API integration and favorites feature – Completed
+
+Week 5: Added dark mode and hamburger menu – Completed
+
+## Running the Project
+
+Clone this repository
+
+git clone <https://github.com/AkinsMikopee10/alx-fe-capstone-project.git>
+
+Move into the project folder
+
+cd alx-fe-capstone-project
 
 Install dependencies
 
@@ -107,30 +114,24 @@ Start the development server
 
 npm run dev
 
-Open the app in your browser at
+Visit the app in your browser
 
-http://localhost:5173
+<http://localhost:5173>
 
 ## Lessons Learned
 
-Fetching and displaying data from an external API using React hooks (useEffect, useState)
+How to use React hooks (useState, useEffect) for API calls
 
-Managing persistent data using localStorage
+How to manage and store data using localStorage
 
-Applying Tailwind CSS for layout and responsiveness
+Styling layouts with Tailwind CSS
 
-Implementing dark mode using document class toggles
+Implementing dark mode and responsive design
 
-Structuring React components for clarity and reusability
-
-Handling loading and error states effectively
+Handling errors and loading states in API-based apps
 
 ## Author
 
 Michael Akinyemi
-Student - ALX Frontend Development Course
 
-## Project Status
-
-Core features completed.
-Final polish and deployment in progress.
+Student - ALX Frontend Web Development Course
