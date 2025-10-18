@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Gamepad2, Sun, Moon } from "lucide-react"; // icons for light & dark mode and the Gamepad for logo
+import { Gamepad2, Sun, Moon, Menu, X } from "lucide-react"; // Added Menu & X icons
 
 const Header = () => {
   const [darkMode, setDarkMode] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // for hamburger toggle
 
   // Apply/remove dark mode class
   useEffect(() => {
@@ -15,18 +16,16 @@ const Header = () => {
   }, [darkMode]);
 
   return (
-    // Header background changes with dark mode
     <header className="bg-white dark:bg-gray-900 shadow-md">
       <nav className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-        {/* the div for the Logo with Gamepad icon is here */}
+        {/* Logo */}
         <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-bold text-lg">
-          <Gamepad2 size={20} />{" "}
-          {/* the Gamepad icon from lucide-react is here */}
+          <Gamepad2 size={20} />
           <span>Game Explorer</span>
         </div>
 
-        {/*the nav links */}
-        <div className="space-x-4">
+        {/* Desktop Nav Links */}
+        <div className="hidden md:flex space-x-4">
           <Link
             to="/"
             className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400"
@@ -47,14 +46,54 @@ const Header = () => {
           </Link>
         </div>
 
-        {/* the dark Mode toggle button */}
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="ml-4 p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
-        >
-          {darkMode ? <Moon size={18} /> : <Sun size={18} />}
-        </button>
+        {/* Right-side buttons */}
+        <div className="flex items-center gap-2">
+          {/* Dark Mode toggle */}
+          <button
+            onClick={() => setDarkMode(!darkMode)}
+            className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+          >
+            {darkMode ? <Moon size={18} /> : <Sun size={18} />}
+          </button>
+
+          {/* Hamburger icon (visible only on mobile) */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          >
+            {isOpen ? <X size={22} /> : <Menu size={22} />}
+          </button>
+        </div>
       </nav>
+
+      {/* Mobile Menu Dropdown */}
+      {isOpen && (
+        <div className="md:hidden bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex flex-col px-4 py-2 space-y-2">
+            <Link
+              to="/"
+              onClick={() => setIsOpen(false)}
+              className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400"
+            >
+              Home
+            </Link>
+            <Link
+              to="/favorites"
+              onClick={() => setIsOpen(false)}
+              className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400"
+            >
+              Favorites
+            </Link>
+            <Link
+              to="/about"
+              onClick={() => setIsOpen(false)}
+              className="text-gray-700 dark:text-gray-200 hover:text-indigo-600 dark:hover:text-indigo-400"
+            >
+              About
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 };
