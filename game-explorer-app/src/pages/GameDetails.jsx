@@ -1,18 +1,14 @@
-// the purpose of this component is to show extended info for a single game (fetched from RAWG).
-// it shows the games title, cover image, release date, rating, description, platforms, genres, developer, publisher, age rating.
-// it also performs the Add / Remove favorites using localStorage helpers.
-
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import fetchGameDetails from "../api/fetchGameDetails";
 import { addFavorite, removeFavorite, isFavorite } from "../utils/favorites";
 
 export default function GameDetails() {
-  const { id } = useParams(); // grabs :id from route /game/:id
+  const { id } = useParams();
   const [game, setGame] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [fav, setFav] = useState(false); // whether current game is favorited
+  const [fav, setFav] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -22,9 +18,7 @@ export default function GameDetails() {
       setError(null);
       try {
         const data = await fetchGameDetails(id);
-        if (!data) {
-          throw new Error("No data returned for this game.");
-        }
+        if (!data) throw new Error("No data returned for this game.");
         if (mounted) {
           setGame(data);
           setFav(isFavorite(data.id));
@@ -38,13 +32,9 @@ export default function GameDetails() {
     }
 
     load();
-
-    return () => {
-      mounted = false;
-    };
+    return () => (mounted = false);
   }, [id]);
 
-  // Toggle favorite state and persist
   const handleToggleFavorite = () => {
     if (!game) return;
     if (fav) {
@@ -91,7 +81,6 @@ export default function GameDetails() {
       </div>
     );
 
-  // Safely extract details like platforms, genres, etc. Show "N/A" if not available
   const platforms =
     game.platforms
       ?.map((p) => p.platform?.name)
@@ -100,85 +89,85 @@ export default function GameDetails() {
   const genres = game.genres?.map((g) => g.name).join(", ") || "N/A";
   const developer = game.developers?.[0]?.name || "N/A";
   const publisher = game.publishers?.[0]?.name || "N/A";
-  const ageRating = game.esrb_rating?.name || "N/A"; // RAWG uses esrb_rating
+  const ageRating = game.esrb_rating?.name || "N/A";
 
   return (
     <div className="max-w-4xl mx-auto p-6">
-      {/* link back to Home page */}
+      {/* Back link */}
       <div className="mb-4">
         <Link to="/" className="text-indigo-600 hover:underline">
           ← Back to Home
         </Link>
       </div>
 
-      {/* Title */}
-      <h1 className="text-3xl font-bold mb-4 text-gray-900 dark:text-gray-100">
-        {game.name}
-      </h1>
-
-      {/* Cover + meta data */}
-      <div className="flex flex-col lg:flex-row gap-6">
-        {/* Cover image */}
-        <div className="lg:w-1/3">
-          {game.background_image ? (
-            <img
-              src={game.background_image}
-              alt={game.name}
-              className="w-full rounded-lg shadow-md"
-            />
-          ) : (
-            <div className="w-full h-64 bg-gray-200 dark:bg-gray-700 flex items-center justify-center rounded-lg">
-              <span className="text-gray-500 dark:text-gray-300">
-                No Image Available
-              </span>
-            </div>
-          )}
-
-          {/* Add / Remove Favorites */}
-          <button
-            onClick={handleToggleFavorite}
-            className="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white py-2 rounded-lg transition"
-          >
-            {fav ? "Remove from Favorites" : "Add to Favorites"}
-          </button>
-        </div>
-
-        {/* Details */}
-        <div className="lg:w-2/3">
-          <div className="mb-2 text-sm text-gray-600 dark:text-gray-300">
-            <span className="mr-4">
-              <strong>Release:</strong> {game.released || "N/A"}
-            </span>
-            <span className="mr-4">
-              <strong>Rating:</strong> {game.rating || "N/A"}
-            </span>
-            <span className="mr-4">
-              <strong>Age Rating:</strong> {ageRating}
+      {/* Cover image (full width + increased height) */}
+      <div className="w-full mb-6">
+        {game.background_image ? (
+          <img
+            src={game.background_image}
+            alt={game.name}
+            className="w-full h-96 object-cover rounded-lg shadow-lg"
+          />
+        ) : (
+          <div className="w-full h-96 bg-gray-200 dark:bg-gray-700 flex items-center justify-center rounded-lg">
+            <span className="text-gray-500 dark:text-gray-300">
+              No Image Available
             </span>
           </div>
+        )}
+      </div>
 
-          <div className="mb-4 text-sm text-gray-600 dark:text-gray-300">
-            <p>
-              <strong>Platforms:</strong> {platforms}
-            </p>
-            <p>
-              <strong>Genres:</strong> {genres}
-            </p>
-            <p>
-              <strong>Developer:</strong> {developer}
-            </p>
-            <p>
-              <strong>Publisher:</strong> {publisher}
-            </p>
-          </div>
+      {/* Title + Favorite Button side by side */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4">
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3 sm:mb-0">
+          {game.name}
+        </h1>
 
-          <div className="prose prose-lg dark:prose-invert">
-            <h2 className="text-xl font-semibold mb-2">About</h2>
-            <p className="leading-relaxed text-gray-800 dark:text-gray-100">
-              {game.description_raw || "No description available."}
-            </p>
-          </div>
-        </div>
+        <button
+          onClick={handleToggleFavorite}
+          className={`px-4 py-2 rounded-md text-sm font-medium transition ${
+            fav
+              ? "bg-red-600 hover:bg-red-700 text-white"
+              : "bg-indigo-600 hover:bg-indigo-700 text-white"
+          }`}
+        >
+          {fav ? "Remove from Favorites" : "Add to Favorites"}
+        </button>
+      </div>
+
+      {/* Metadata */}
+      <div className="mb-6 text-sm text-gray-600 dark:text-gray-300 space-y-2">
+        <p>
+          <strong>Release:</strong> {game.released || "N/A"}
+        </p>
+        <p>
+          <strong>Rating:</strong> {game.rating || "N/A"}
+        </p>
+        <p>
+          <strong>Age Rating:</strong> {ageRating}
+        </p>
+        <p>
+          <strong>Platforms:</strong> {platforms}
+        </p>
+        <p>
+          <strong>Genres:</strong> {genres}
+        </p>
+        <p>
+          <strong>Developer:</strong> {developer}
+        </p>
+        <p>
+          <strong>Publisher:</strong> {publisher}
+        </p>
+      </div>
+
+      {/* About Section */}
+      <div className="w-full">
+        <h2 className="text-xl font-semibold mb-2 text-gray-900 dark:text-gray-100">
+          About
+        </h2>
+        <p className="leading-relaxed text-gray-800 dark:text-gray-200">
+          {game.description_raw || "No description available."}
+        </p>
       </div>
     </div>
   );
