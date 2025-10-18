@@ -1,94 +1,136 @@
-<h1>🎮 Game Explorer App</h1>
+# Game Explorer App
 
-A React web app that lets users search for video games using the RAWG API, view details, and save favorites.
+## Project Overview
 
-This project is my ALX Frontend Capstone Project and is built step by step over several weeks.
+Game Explorer is a React web application that allows users to search for video games, view detailed information about each game, and manage a list of favorite games.  
+The app uses the RAWG Video Games Database API and features a clean, responsive interface built with Tailwind CSS.  
+It also supports dark mode and a mobile-friendly hamburger menu for easy navigation.
 
-🚀 Features (Planned & Implemented)
+---
 
-Search for games by name
+## Features
 
-Display game results (cover, title, release date, rating)
+### Core Features
 
-View detailed game info
+- Search for games by title using the RAWG API
+- View detailed game information such as description, release date, rating, genre, and developer
+- Add and remove favorite games (saved using localStorage)
+- Responsive design that adapts to both desktop and mobile devices
+- Dark Mode toggle
+- Hamburger menu for mobile users
+- Loading and error states for better user experience
 
-Save & view favorite games
+### Stretch Features (Future Improvements)
 
-Responsive design (desktop & mobile)
+- User reviews and ratings
+- Pagination or infinite scroll
+- Screenshots and video trailers
+- Recommendations engine
+- Wishlist or backlog feature
+- User authentication
+- Database-powered favorites
 
-Dark mode toggle
+---
 
-About page with project info
+## How It Works
 
-🏗️ Project Structure
-ALX-FE-Capstone-Project/
-├── README.md <-- project documentation (this file)
-├── game-explorer-app/ <-- React app source code
-└── docs/ (later) <-- screenshots, notes, extra files
+1. The user enters a game title in the search bar.
+2. The app fetches data from the RAWG API and displays results in a grid layout.
+3. Clicking a game opens its details page, showing more information.
+4. Users can add or remove games from their favorites list.
+5. Favorites are stored locally using `localStorage`, so they remain even after a page refresh.
 
-🛠️ Tech Stack
+---
 
-React + Vite → fast frontend setup
+## Tech Stack
 
-TailwindCSS → styling
+| Tools
+|----------------
+| React (Vite)
+| Tailwind CSS for Styling and responsiveness
+| RAWG API - Game data source
+| localStorage to save favorites locally
+| Lucide React Icons for visual icons (light/dark mode, menu)
+| Git & GitHub - Version control
+| Vercel - Deployment platform
 
-React Router → navigation
+---
 
-RAWG API → game database
+## Component Structure
 
-LocalStorage → favorites persistence
+App
+├─ Header / NavBar
+│  ├─ Logo / App Name
+│  ├─ Navigation Links (Home, Favorites, About)
+│  ├─ Dark Mode Toggle
+│  └─ Hamburger Menu (mobile only)
+├─ GameList (renders GameCard components)
+│  └─ GameCard (cover, title, release date, favorite toggle)
+├─ GameDetails (displays extended info)
+├─ FavoritesList (shows saved games)
+└─ About Page (project details)
 
-📦 Installation & Setup
+---
+
+## Development Timeline
+
+| Week                     | Task                                                      | Status      |
+| ------------------------ | --------------------------------------------------------- | ----------- |
+| Week 1 – Planning        | Defined project idea, tested RAWG API                     | Completed   |
+| Week 2 – Design          | Created wireframes, chose colors and fonts                | Completed   |
+| Week 3 – UI Components   | Built NavBar, SearchBar, GameCard, and layouts            | Completed   |
+| Week 4 – API Integration | Connected to RAWG API, added favorites                    | Completed   |
+| Week 5 – Polish & Deploy | Added dark mode, hamburger menu, preparing for deployment | In Progress |
+
+---
+
+## How to Run the Project Locally
 
 1. Clone the repository
-   git clone <https://github.com/AkinsMikopee10/ALX-FE-Capstone-Project.git>
-   cd ALX-FE-Capstone-Project/game-explorer-app
+   ```bash
+   git clone https://github.com/your-username/ALX-FE-Capstone-Project.git
+   ```
 
-2. Install dependencies
-   npm install
+Navigate to the project folder
 
-3. Run the development server
-   npm run dev
+cd ALX-FE-Capstone-Project
 
-Then open the URL (usually <http://localhost:5173>) in your browser.
+Install dependencies
 
-🌱 Development Timeline
+npm install
 
-Week 1 → Planning (idea, features, API, timeline ✅)
+Create a .env file and add your RAWG API key
 
-Week 2 → High-fidelity design (Figma ✅)
+VITE_RAWG_API_KEY=your_api_key_here
 
-Week 3 → Project setup (React, Tailwind, Router, GitHub repo ✅)
+Start the development server
 
-Week 4 → Connect to RAWG API + Search feature
+npm run dev
 
-Week 5 → Favorites, dark mode, responsive navbar, polish
+Open the app in your browser at
 
-🖼️ Screenshots (to be added)
+http://localhost:5173
 
-Home page (desktop & mobile)
+## Lessons Learned
 
-Favorites page
+Fetching and displaying data from an external API using React hooks (useEffect, useState)
 
-Game details
+Managing persistent data using localStorage
 
-(Add screenshots from your Figma designs and later from the running app.)
+Applying Tailwind CSS for layout and responsiveness
 
-🙌 Acknowledgements
+Implementing dark mode using document class toggles
 
-RAWG API
-for game data
+Structuring React components for clarity and reusability
 
-TailwindCSS
-for styling
+Handling loading and error states effectively
 
-React
+## Author
 
-- Vite
-  for frontend development
+Michael Akinyemi
+Student - ALX Frontend Development Course
 
-📌 Status
-Completed Week 3: Project Setup
-✅ Repo initialized with React app, TailwindCSS, and Router.
+## Project Status
 
-Currently working on Week 4 → Connect to RAWG API + Search feature
+Core features completed.
+Final polish and deployment in progress.
